@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Players;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Interfaces\Player;
@@ -38,5 +38,35 @@ class SnapPlayer extends Model implements Player
     public function getStack()
     {
         return $this->stack;
+    }
+
+    public function setStack(array $stack): SnapPlayer
+    {
+        $this->stack = $stack;
+        return $this;
+    }
+
+    public function getStackSize(): int
+    {
+        return count($this->getStack());
+    }
+
+    public function addCardToStack(SnapCard $card): SnapPlayer
+    {
+        $this->stack[] = $card;
+        return $this;
+    }
+
+    public function addStackToStack(array $stack): SnapPlayer
+    {
+        foreach ($stack as $card) {
+            $this->addCardToStack($card);
+        }
+        return $this;
+    }
+
+    public function drawCard(): SnapCard
+    {
+        return array_shift($this->stack);
     }
 }

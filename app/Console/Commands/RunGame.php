@@ -39,6 +39,7 @@ class RunGame extends Command
         $this->info('Starting the game!');
 
         $game = new SnapGameService;
+        $game->startGame();
 
         dd('end');
     }

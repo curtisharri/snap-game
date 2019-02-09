@@ -70,4 +70,27 @@ class SnapDeck extends Model implements Deck
         $this->cards = $cards;
         return $this;
     }
+
+    public function getDeckSize(): int
+    {
+        return $this->deckSize;
+    }
+
+    private function setDeckSize(int $deckSize): Deck
+    {
+        $this->deckSize = $deckSize;
+        return $this;
+    }
+
+    /**
+     * @return SnapCard[]
+     */
+    public function splitDeck(int $total)
+    {
+        // Calculate the size of each stack
+        $size = floor($this->getDeckSize() / $total);
+
+        // Split the deck into an array of snap card arrays depending on the above stack size
+        return array_chunk($this->getCards(), $size);
+    }
 }

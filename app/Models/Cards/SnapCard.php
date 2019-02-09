@@ -8,7 +8,7 @@ class SnapCard extends Model implements Card
     private $suit;
     private $value;
 
-    public function getCard(): SnapCard
+    public function getCard(): Card
     {
         return $this;
     }
