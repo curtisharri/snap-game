@@ -1,10 +1,10 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Snap;
 
-use App\Services\Base\BaseSnapGameService;
+use App\Services\Snap\Base\BaseGameService;
 
-class SnapGameService extends BaseSnapGameService
+class GameService extends BaseGameService
 {
-    public function startGame(): SnapGameService
+    public function startGame(): GameService
     {
         $this->splitDeck();
 
@@ -44,7 +44,7 @@ class SnapGameService extends BaseSnapGameService
         return $this;
     }
 
-    protected function splitDeck(): SnapGameService
+    protected function splitDeck(): GameService
     {
         // Get the stacks from the deck using the total number of players
         $stacks = $this->getDeck()->splitDeck($this->getTotalPlayers());
@@ -56,7 +56,7 @@ class SnapGameService extends BaseSnapGameService
         return $this;
     }
 
-    protected function addTableStackToCurrentPlayer(): SnapGameService
+    protected function addTableStackToCurrentPlayer(): GameService
     {
         // Add the table stack to the current player's stack
         $this->getCurrentPlayer()->addStackToStack($this->getTableStack());
@@ -65,7 +65,7 @@ class SnapGameService extends BaseSnapGameService
         return $this;
     }
 
-    protected function nextPlayer(): SnapGameService
+    protected function nextPlayer(): GameService
     {
         foreach ($this->getPlayers() as $key => $player) {
             if ($player->getId() === $this->getCurrentPlayer()->getId()) {

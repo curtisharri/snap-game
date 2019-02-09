@@ -1,10 +1,10 @@
-<?php namespace App\Services\Base;
+<?php namespace App\Services\Snap\Base;
 
 use App\Models\Decks\SnapDeck;
 use App\Models\Cards\SnapCard;
 use App\Models\Players\SnapPlayer;
 
-class BaseSnapGameService
+class BaseGameService
 {
     protected $deck;
     protected $tableStack = [];
@@ -23,7 +23,7 @@ class BaseSnapGameService
         return $this->deck;
     }
 
-    protected function setDeck(): BaseSnapGameService
+    protected function setDeck(): BaseGameService
     {
         $this->deck = new SnapDeck;
         return $this;
@@ -53,7 +53,7 @@ class BaseSnapGameService
         return $this->tableStack[0];
     }
 
-    protected function addCardToTableStack(SnapCard $card): BaseSnapGameService
+    protected function addCardToTableStack(SnapCard $card): BaseGameService
     {
         // Add the card to the 'top' of the table stack
         array_unshift($this->tableStack, $card);
@@ -73,7 +73,7 @@ class BaseSnapGameService
         return $this->totalPlayers;
     }
 
-    public function setPlayers($total = 2): BaseSnapGameService
+    public function setPlayers($total = 2): BaseGameService
     {
         // Set our total players so we can send that through to the deck
         $this->totalPlayers = $total;
@@ -94,7 +94,7 @@ class BaseSnapGameService
         return $this;
     }
 
-    protected function setCurrentPlayer(SnapPlayer $player): BaseSnapGameService
+    protected function setCurrentPlayer(SnapPlayer $player): BaseGameService
     {
         $this->currentPlayer = $player;
         return $this;
@@ -110,7 +110,7 @@ class BaseSnapGameService
         return $this->winner;
     }
 
-    protected function setWinner(): BaseSnapGameService
+    protected function setWinner(): BaseGameService
     {
         foreach ($this->getPlayers() as $player) {
             if (is_null($this->getWinner()) || $player->getStackSize() > $this->getWinner()->getStackSize()) {

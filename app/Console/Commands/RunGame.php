@@ -1,7 +1,7 @@
 <?php namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Services\SnapGameService;
+use App\Services\Snap\GameService as SnapGameService;
 
 class RunGame extends Command
 {
