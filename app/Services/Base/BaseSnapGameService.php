@@ -37,6 +37,16 @@ class BaseSnapGameService
         return $this->tableStack;
     }
 
+    protected function getTableStackSize(): int
+    {
+        return count($this->getTableStack());
+    }
+
+    protected function clearTableStack()
+    {
+        $this->tableStack = [];
+    }
+
     protected function getTopCard(): SnapCard
     {
         // Get the card at the top of the table stack
@@ -48,11 +58,6 @@ class BaseSnapGameService
         // Add the card to the 'top' of the table stack
         array_unshift($this->tableStack, $card);
         return $this;
-    }
-
-    protected function clearTableStack()
-    {
-        $this->tableStack = [];
     }
 
     /**
@@ -105,9 +110,14 @@ class BaseSnapGameService
         return $this->winner;
     }
 
-    public function setWinner(SnapPlayer $player): BaseSnapGameService
+    protected function setWinner(): BaseSnapGameService
     {
-        $this->winner = $player;
+        foreach ($this->getPlayers() as $player) {
+            if (is_null($this->getWinner()) || $player->getStackSize() > $this->getWinner()->getStackSize()) {
+                // Keep setting the winner as the player with the highest stack size
+                $this->winner = $player;
+            }
+        }
         return $this;
     }
 }
